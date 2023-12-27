@@ -1,0 +1,48 @@
+def create_files():
+    content1 = "This is the content of TF18_1 file. It has different length strings."
+    content2 = "TF18_2 file contains strings of various lengths for testing purposes."
+
+    try:
+        with open("TF18_1.txt", "w") as file1, open("TF18_2.txt", "w") as file2:
+            file1.write(content1)
+            file2.write(content2)
+    except IOError as e:
+        print(f"Error creating files: {e}")
+
+def swap_contents():
+    try:
+        with open("TF18_1.txt", "r") as file1, open("TF18_2.txt", "r") as file2:
+            content1 = file1.read()
+            content2 = file2.read()
+
+        with open("TF18_1.txt", "w") as file1, open("TF18_2.txt", "w") as file2:
+            write_content_in_lines(file1, content2)
+            write_content_in_lines(file2, content1)
+
+    except IOError as e:
+        print(f"Error swapping contents: {e}")
+
+def write_content_in_lines(file, content):
+    line_length = 20
+    while content:
+        file.write(content[:line_length] + "\n")
+        content = content[line_length:]
+
+def print_contents():
+    try:
+        with open("TF18_1.txt", "r") as file1, open("TF18_2.txt", "r") as file2:
+            print("TF18_1 content:")
+            print(file1.read())
+            print("\nTF18_2 content:")
+            print(file2.read())
+    except IOError as e:
+        print(f"Error reading contents: {e}")
+
+# Main program
+create_files()
+print("Initial contents:")
+print_contents()
+
+swap_contents()
+print("\nContents after swapping:")
+print_contents()
